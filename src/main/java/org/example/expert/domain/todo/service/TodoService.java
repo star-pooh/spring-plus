@@ -1,5 +1,6 @@
 package org.example.expert.domain.todo.service;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.client.WeatherClient;
 import org.example.expert.domain.common.dto.AuthUser;
@@ -53,9 +54,10 @@ public class TodoService {
 
     public Page<TodoResponse> getTodos(int page, int size, String weather, String modifiedAtStart, String modifiedAtEnd) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        LocalDateTime startDate = modifiedAtStart.isBlank() ? null
+
+        LocalDateTime startDate = StringUtils.isBlank(modifiedAtStart) ? null
                 : LocalDateTime.parse(modifiedAtStart.concat("T00:00:00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        LocalDateTime endDate = modifiedAtEnd.isBlank() ? null
+        LocalDateTime endDate = StringUtils.isBlank(modifiedAtEnd) ? null
                 : LocalDateTime.parse(modifiedAtEnd.concat("T23:59:59"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
         Page<Todo> todos = todoRepository.findAllByWeatherAndModifiedAtDesc(pageable, weather, startDate, endDate);
