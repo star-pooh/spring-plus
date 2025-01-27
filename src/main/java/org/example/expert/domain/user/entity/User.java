@@ -10,7 +10,8 @@ import org.example.expert.domain.user.enums.UserRole;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "users")
+// Todo 검색 조건에 따라 인덱스 추가 설정 가능성 있음 (테스트에서 유의미한 결과가 있을 시)
+@Table(name = "users", indexes = @Index(name = "idx_nickname", columnList = "nickname"))
 public class User extends Timestamped {
 
     @Id

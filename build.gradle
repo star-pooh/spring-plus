@@ -50,6 +50,9 @@ dependencies {
 
     // Spring Security Test
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // Data Faker
+    implementation 'net.datafaker:datafaker:2.4.0'
 }
 
 tasks.named('test') {
